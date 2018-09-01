@@ -1,3 +1,15 @@
+function loadTrips() {
+  if (trips.length === 0) {
+    return;
+  }
+
+  document.querySelector('body').innerHTML = '';
+
+  for (var i = 0; i < trips.length; i++) {
+    let trip = trips[i];
+    createTrip(trip.place, trip.time, 'trip-'+i);
+  }
+}
 
 function createTrip(name, date, id) {
   document.querySelector('body').innerHTML += createHTML();
@@ -69,8 +81,4 @@ function countdown(element, endDate) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  createTrip('Bogotá', '2018-09-19T08:00:00-05:00', 'trip-01');
-  createTrip('Monterrey', '2018-09-27T18:00:00-05:00', 'trip-02');
-  createTrip('San Francisco', '2018-10-14T19:00:00-05:00', 'trip-03');
-});
+document.addEventListener("DOMContentLoaded", loadTrips);
