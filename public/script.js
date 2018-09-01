@@ -1,4 +1,29 @@
 
+function createTrip(name, date, id) {
+  document.querySelector('body').innerHTML += createHTML();
+  countdown(id, date);
+
+  function createHTML() {
+    let html = '<article id="'+ id +'">';
+    html += '<h1>'+ name +'</h1>';
+    html += '<section>';
+    html += createTimeBlock('days');
+    html += createTimeBlock('hours');
+    html += createTimeBlock('minutes');
+    html += createTimeBlock('seconds');
+    html += '</section>';
+    html += '</article>';
+    return html
+  }
+
+  function createTimeBlock(type) {
+    let html = '<div class="time-block">';
+    html += '<span class="value '+ type +'">00</span>';
+    html += '<span class="key">'+ type +'</span>';
+    html += '</div>';
+    return html;
+  }
+}
 
 function countdown(element, endDate) {
   let days, hours, minutes, seconds;
@@ -44,8 +69,8 @@ function countdown(element, endDate) {
   }
 }
 
-(function () {
-  countdown('trip-01', '2018-09-19T08:00:00-05:00');
-  countdown('trip-02', '2018-09-27T18:00:00-05:00');
-  countdown('trip-03', '2018-10-14T19:00:00-05:00');
-})();
+document.addEventListener("DOMContentLoaded", function () {
+  createTrip('Bogotá', '2018-09-19T08:00:00-05:00', 'trip-01');
+  createTrip('Monterrey', '2018-09-27T18:00:00-05:00', 'trip-02');
+  createTrip('San Francisco', '2018-10-14T19:00:00-05:00', 'trip-03');
+});
