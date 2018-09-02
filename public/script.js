@@ -30,8 +30,14 @@ function createTrip(name, date, id) {
 
   function createTimeBlock(type) {
     let html = '<div class="time-block">';
+    let names = {
+      'days': 'días',
+      'hours': 'horas',
+      'minutes': 'mins',
+      'seconds': 'segs'
+    }
     html += '<span class="value '+ type +'">00</span>';
-    html += '<span class="key">'+ type +'</span>';
+    html += '<span class="key">'+ names[type] +'</span>';
     html += '</div>';
     return html;
   }
