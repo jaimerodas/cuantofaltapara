@@ -11,7 +11,9 @@ body {
   height: auto;
   background-color: #000;
   color: white;
-  font-family: "Gotham HTF";
+  font-family: "Gotham SSm A", "Gotham SSm B";
+  font-style: normal;
+  font-weight: 400;
   text-transform: uppercase;
   text-align: center;
 
@@ -32,6 +34,7 @@ section {
 }
 h1 {
   font-size: 2em;
+  font-weight: 700;
   line-height: 1;
   margin: 0;
 }
@@ -48,7 +51,9 @@ h1 {
   font-size: 0.75em;
 }
 .value {
-  font-family: "Tungsten Extra Light";
+  font-family: "Tungsten A", "Tungsten B";
+  font-style: normal;
+  font-weight: 200;
   font-size: 5em;
   line-height: 1;
 }
