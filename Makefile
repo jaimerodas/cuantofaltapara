@@ -3,6 +3,6 @@ watch:
 install:
 	bin/process_trips.sh
 sync:
-	scp public/trips.json aetna:/sites/cuantofaltaparairnos.com/public
+	scp public/trips.js aetna:/sites/cuantofaltaparairnos.com/public
 upgrade:
 	ssh aetna "cd /sites/cuantofaltaparairnos.com && git pull"
