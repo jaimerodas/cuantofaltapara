@@ -11,7 +11,7 @@ body {
   height: auto;
   background-color: #000;
   color: white;
-  font-family: "Gotham SSm A", "Gotham SSm B";
+  font-family: "Gotham SSm A", "Gotham SSm B", "Gotham HTF";
   font-style: normal;
   font-weight: 400;
   text-transform: uppercase;
@@ -45,13 +45,11 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .direction {
-    color: #666;
-    font-size: 0.5em;
-    font-weight: 400;
-    margin-right: 0.5em;
-  }
+}
+.direction {
+  color: #666;
+  font-size: 0.75em;
+  font-weight: 400;
 }
 .time-block {
   min-width: 4em;
@@ -66,7 +64,7 @@ h1 {
   font-size: 0.75em;
 }
 .value {
-  font-family: "Tungsten A", "Tungsten B";
+  font-family: "Tungsten A", "Tungsten B", "Tungsten";
   font-style: normal;
   font-weight: 200;
   font-size: 5em;
@@ -76,9 +74,5 @@ h1 {
 @media screen and (min-width: 32em) {
   .time-block {
     font-size: 1.5em;
-  }
-  article {
-    height: auto;
-    padding: 2em;
   }
 }

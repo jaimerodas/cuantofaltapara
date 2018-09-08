@@ -34,7 +34,8 @@ function createTripNode(name, date, id, direction) {
 
   function createHTML() {
     let html = '<article id="'+ id +'">';
-    html += '<h1><span class="direction">'+direction+'</span> '+name+'</h1>';
+    html += '<div class="direction">'+direction+'</div>';
+    html += '<h1>'+name+'</h1>';
     html += '<section>';
     html += createTimeBlock('days');
     html += createTimeBlock('hours');
