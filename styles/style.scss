@@ -37,8 +37,14 @@ h1 {
   font-weight: 700;
   line-height: 1;
   margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   .direction {
     color: #666;
+    font-size: 0.5em;
     font-weight: 400;
   }
 }
