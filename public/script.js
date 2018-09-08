@@ -7,17 +7,34 @@ function loadTrips() {
 
   for (var i = 0; i < trips.length; i++) {
     let trip = trips[i];
-    createTrip(trip.place, trip.time, 'trip-'+i);
+    createTrip(trip, i);
   }
 }
 
-function createTrip(name, date, id) {
+function createTrip(trip, pos) {
+  let now, depart, arrive;
+
+  now    = new Date().getTime();
+  depart = new Date(trip.depart).getTime();
+  arrive = new Date(trip.return).getTime();
+
+  if ((now - arrive) > 0) return;
+
+  if ((now - depart) > 0) {
+    createTripNode(trip.destination, arrive, 'trip-'+pos, 'vuelta');
+    return;
+  }
+
+  createTripNode(trip.destination, depart, 'trip-'+pos, 'ida');
+}
+
+function createTripNode(name, date, id, direction) {
   document.querySelector('body').innerHTML += createHTML();
   countdown(id, date);
 
   function createHTML() {
     let html = '<article id="'+ id +'">';
-    html += '<h1>'+ name +'</h1>';
+    html += '<h1><span class="direction">'+direction+'</span> '+name+'</h1>';
     html += '<section>';
     html += createTimeBlock('days');
     html += createTimeBlock('hours');
@@ -46,8 +63,6 @@ function createTrip(name, date, id) {
 function countdown(element, endDate) {
   let days, hours, minutes, seconds;
 
-  endDate = new Date(endDate).getTime();
-
   if (isNaN(endDate)) {
     return;
   }
@@ -55,9 +70,7 @@ function countdown(element, endDate) {
   setInterval(calculate, 1000);
 
   function calculate() {
-    let startDate = new Date();
-    startDate = startDate.getTime();
-
+    let startDate = new Date().getTime();
     let timeRemaining = parseInt((endDate - startDate) / 1000);
 
     if (timeRemaining >= 0) {

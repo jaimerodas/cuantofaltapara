@@ -1,5 +1,0 @@
-var trips = [
-  { "place": "Hong Kong", "time": "2035-09-19T17:00:00-05:00" },
-  { "place": "Mexico City", "time": "2028-09-27T19:00:00-05:00" },
-  { "place": "New York", "time": "2100-10-18T19:00:00-05:00" }
-]
