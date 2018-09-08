@@ -21,11 +21,11 @@ function createTrip(trip, pos) {
   if ((now - arrive) > 0) return;
 
   if ((now - depart) > 0) {
-    createTripNode(trip.destination, arrive, 'trip-'+pos, 'vuelta');
+    createTripNode(trip.destination, arrive, 'trip-'+pos, 'regreso de');
     return;
   }
 
-  createTripNode(trip.destination, depart, 'trip-'+pos, 'ida');
+  createTripNode(trip.destination, depart, 'trip-'+pos, 'salida a');
 }
 
 function createTripNode(name, date, id, direction) {
