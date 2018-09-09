@@ -23,6 +23,9 @@ body {
   justify-content: center;
 }
 
+article {
+  margin: 2em 0;
+}
 
 section {
   display: flex;
@@ -67,5 +70,11 @@ h1 {
 @media screen and (min-width: 32em) {
   .time-block {
     font-size: 1.5em;
+  }
+}
+
+@media screen and (max-height: 24em) {
+  article {
+    margin: 5em 0;
   }
 }
