@@ -5,10 +5,7 @@ function loadTrips() {
 
   document.querySelector('body').innerHTML = '';
 
-  for (var i = 0; i < trips.length; i++) {
-    let trip = trips[i];
-    createTrip(trip, i);
-  }
+  for (var i = 0; i < trips.length; i++) createTrip(trips[i], i);
 }
 
 function createTrip(trip, pos) {
@@ -29,34 +26,35 @@ function createTrip(trip, pos) {
 }
 
 function createTripNode(name, date, id, direction) {
-  document.querySelector('body').innerHTML += createHTML();
+  document.querySelector('body').innerHTML += createNode(
+    'article',
+    collectNodes(
+      createNode('div', direction, {class: 'direction'}),
+      createNode('h1', name),
+      createNode('section', createTimeBlocks),
+    ),
+    {id: id}
+  );
+
   countdown(id, date);
 
-  function createHTML() {
-    let html = '<article id="'+ id +'">';
-    html += '<div class="direction">'+direction+'</div>';
-    html += '<h1>'+name+'</h1>';
-    html += '<section>';
-    html += createTimeBlock('days');
-    html += createTimeBlock('hours');
-    html += createTimeBlock('minutes');
-    html += createTimeBlock('seconds');
-    html += '</section>';
-    html += '</article>';
-    return html
-  }
-
-  function createTimeBlock(type) {
-    let html = '<div class="time-block">';
+  function createTimeBlocks() {
     let names = {
       'days': 'días',
       'hours': 'horas',
       'minutes': 'mins',
       'seconds': 'segs'
+    };
+
+    let html = '';
+
+    for (name in names) {
+      html += createNode('div', collectNodes(
+        createNode('span', '00', {class: 'value ' + name}),
+        createNode('span', names[name], {class: 'key'})
+      ), {class: 'time-block'});
     }
-    html += '<span class="value '+ type +'">00</span>';
-    html += '<span class="key">'+ names[type] +'</span>';
-    html += '</div>';
+
     return html;
   }
 }
@@ -99,6 +97,23 @@ function countdown(element, endDate) {
     element.querySelector(".minutes").innerHTML = ("0" + minutes).slice(-2);
     element.querySelector(".seconds").innerHTML = ("0" + seconds).slice(-2);
   }
+}
+
+function createNode(name, content, options = {}) {
+  if (typeof content == "function") content = content();
+  let html = '<' + name;
+  for (key in options) html += ' ' + key + '="'+ options[key] +'"';
+  html += ">" + content + "</" + name + ">";
+  return html;
+}
+
+function collectNodes(...nodes) {
+  let html = '';
+  nodes.forEach(function(item) {
+    if (typeof item == 'function') item = item();
+    html += item;
+  });
+  return html;
 }
 
 document.addEventListener("DOMContentLoaded", loadTrips);
