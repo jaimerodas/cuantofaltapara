@@ -1,11 +1,7 @@
 function loadTrips() {
-  if (trips.length === 0) {
-    return;
-  }
-
-  document.querySelector('body').innerHTML = '';
-
-  for (var i = 0; i < trips.length; i++) createTrip(trips[i], i);
+  if (trips.length === 0) return;
+  document.querySelector("body").innerHTML = "";
+  for (let i = 0; i < trips.length; i++) createTrip(trips[i], i);
 }
 
 function createTrip(trip, pos) {
@@ -18,20 +14,20 @@ function createTrip(trip, pos) {
   if ((now - arrive) > 0) return;
 
   if ((now - depart) > 0) {
-    createTripNode(trip.destination, arrive, 'trip-'+pos, 'regreso de');
+    createTripNode(trip.destination, arrive, "trip-"+pos, "regreso de");
     return;
   }
 
-  createTripNode(trip.destination, depart, 'trip-'+pos, 'salida a');
+  createTripNode(trip.destination, depart, "trip-"+pos, "salida a");
 }
 
 function createTripNode(name, date, id, direction) {
-  document.querySelector('body').innerHTML += createNode(
-    'article',
-    collectNodes(
-      createNode('div', direction, {class: 'direction'}),
-      createNode('h1', name),
-      createNode('section', createTimeBlocks),
+  document.querySelector("body").innerHTML += domTag(
+    "article",
+    collect(
+      domTag("div", direction, {class: "direction"}),
+      domTag("h1", name),
+      domTag("section", createTimeBlocks)
     ),
     {id: id}
   );
@@ -39,32 +35,22 @@ function createTripNode(name, date, id, direction) {
   countdown(id, date);
 
   function createTimeBlocks() {
-    let names = {
-      'days': 'días',
-      'hours': 'horas',
-      'minutes': 'mins',
-      'seconds': 'segs'
+    const names = {
+      days: "días", hours: "horas", minutes: "mins", seconds: "segs"
     };
-
-    let html = '';
-
-    for (name in names) {
-      html += createNode('div', collectNodes(
-        createNode('span', '00', {class: 'value ' + name}),
-        createNode('span', names[name], {class: 'key'})
-      ), {class: 'time-block'});
-    }
-
-    return html;
+    return Object.keys(names).reduce((html, name) => {
+      return html += domTag("div", collect(
+        domTag("span", "00", {class: "value " + name}),
+        domTag("span", names[name], {class: "key"})
+      ), { class: "time-block" });
+    }, "");
   }
 }
 
 function countdown(element, endDate) {
   let days, hours, minutes, seconds;
 
-  if (isNaN(endDate)) {
-    return;
-  }
+  if (isNaN(endDate)) return;
 
   setInterval(calculate, 1000);
 
@@ -73,9 +59,9 @@ function countdown(element, endDate) {
     let timeRemaining = parseInt((endDate - startDate) / 1000);
 
     if (timeRemaining >= 0) {
-      updateTime(element, timeRemaining)
+      updateTime(element, timeRemaining);
     } else {
-      updateTime(element, 0)
+      updateTime(element, 0);
     }
   }
 
@@ -99,21 +85,19 @@ function countdown(element, endDate) {
   }
 }
 
-function createNode(name, content, options = {}) {
+function domTag(name, content, options = {}) {
   if (typeof content == "function") content = content();
-  let html = '<' + name;
-  for (key in options) html += ' ' + key + '="'+ options[key] +'"';
+  let html = "<" + name;
+  for (let key in options) html += " " + key + "=\""+ options[key] +"\"";
   html += ">" + content + "</" + name + ">";
   return html;
 }
 
-function collectNodes(...nodes) {
-  let html = '';
-  nodes.forEach(function(item) {
-    if (typeof item == 'function') item = item();
-    html += item;
-  });
-  return html;
+function collect(...nodes) {
+  return nodes.reduce((html, item) => {
+    if (typeof item == "function") item = item();
+    return html += item;
+  }, "");
 }
 
 document.addEventListener("DOMContentLoaded", loadTrips);
