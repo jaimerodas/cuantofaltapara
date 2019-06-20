@@ -1,3 +1,9 @@
+:root {
+  --bg-color: #fff;
+  --fg-color: #000;
+  --mid-color: #666;
+}
+
 html {
   margin: 0;
   padding: 0;
@@ -9,8 +15,8 @@ body {
   padding: 0;
   min-height: 100%;
   height: auto;
-  background-color: #000;
-  color: white;
+  background-color: var(--bg-color);
+  color: var(--fg-color);
   font-family: "Gotham SSm A", "Gotham SSm B", "Gotham HTF";
   font-style: normal;
   font-weight: 400;
@@ -43,7 +49,7 @@ h1 {
   justify-content: center;
 }
 .direction {
-  color: #666;
+  color: var(--mid-color);
   font-size: 0.75em;
   font-weight: 400;
 }
@@ -76,5 +82,13 @@ h1 {
 @media screen and (max-height: 24em) {
   article {
     margin: 5em 0;
+  }
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #000;
+    --fg-color: #fff;
+    --mid-color: #666;
   }
 }
