@@ -1,7 +1,14 @@
 function loadTrips() {
-  if (trips.length === 0) return;
+  const upcomingTrips = trips.filter(trip => {
+    const now = new Date().getTime()
+    const arrive = new Date(trip.return).getTime()
+    return arrive - now > 0
+  })
+
+  if (upcomingTrips.length === 0) return;
+
   document.querySelector("body").innerHTML = "";
-  for (let i = 0; i < trips.length; i++) createTrip(trips[i], i);
+  upcomingTrips.forEach(createTrip)
 }
 
 function createTrip(trip, pos) {
@@ -10,8 +17,6 @@ function createTrip(trip, pos) {
   now    = new Date().getTime();
   depart = new Date(trip.depart).getTime();
   arrive = new Date(trip.return).getTime();
-
-  if ((now - arrive) > 0) return;
 
   if ((now - depart) > 0) {
     createTripNode(trip.destination, arrive, "trip-"+pos, "regreso de");
